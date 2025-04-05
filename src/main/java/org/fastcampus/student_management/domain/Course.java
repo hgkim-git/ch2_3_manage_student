@@ -1,9 +1,10 @@
 package org.fastcampus.student_management.domain;
 
 public class Course {
+
   private final Student student;
   private final String courseName;
-  private final int fee;
+  private final CourseFee fee;
   private final DayOfWeek dayOfWeek;
   private final Long courseTime;
 
@@ -14,7 +15,7 @@ public class Course {
 
     this.student = student;
     this.courseName = courseName;
-    this.fee = fee;
+    this.fee = new CourseFee(fee);
     this.dayOfWeek = dayOfWeek;
     this.courseTime = courseTime;
   }
@@ -35,8 +36,12 @@ public class Course {
     return student.getName();
   }
 
-  public int getFee() {
+  public CourseFee getFee() {
     return fee;
+  }
+
+  public void changeFee(int fee) {
+    this.fee.changeFee(fee);
   }
 
   public DayOfWeek getDayOfWeek() {

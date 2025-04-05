@@ -20,7 +20,7 @@ public class CourseInfoDto {
 
   public CourseInfoDto(Course course) {
     this.courseName = course.getCourseName();
-    this.fee = course.getFee();
+    this.fee = course.getFee().getFee();
     this.dayOfWeek = course.getDayOfWeek();
     this.studentName = course.getStudentName();
     this.courseTime = course.getCourseTime();
