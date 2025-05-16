@@ -4,17 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.fastcampus.student_management.application.course.interfaces.CourseQueryRepository;
 import org.fastcampus.student_management.domain.Course;
 import org.fastcampus.student_management.domain.DayOfWeek;
 
-public class CourseRepository {
+public class CourseJdbcQueryRepositoryImpl implements CourseQueryRepository {
 
   private final Map<String, Course> courseMap = new HashMap<>();
 
-  public void save(Course course) {
-    courseMap.put(course.getCourseName(), course);
-  }
-
+  @Override
   public List<Course> getCourseDayOfWeek(DayOfWeek dayOfWeek) {
     List<Course> courses = new ArrayList<>();
     for (Course course : courseMap.values()) {
@@ -25,6 +23,7 @@ public class CourseRepository {
     return courses;
   }
 
+  @Override
   public List<Course> getCourseListByStudent(String studentName) {
     List<Course> courses = new ArrayList<>();
     for (Course course : courseMap.values()) {
@@ -33,11 +32,5 @@ public class CourseRepository {
       }
     }
     return courses;
-  }
-
-  public void saveCourses(List<Course> courses) {
-    for (Course course : courses) {
-      courseMap.put(course.getCourseName(), course);
-    }
   }
 }

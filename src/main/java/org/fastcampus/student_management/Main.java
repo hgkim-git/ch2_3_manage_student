@@ -1,28 +1,33 @@
 package org.fastcampus.student_management;
 
 import org.fastcampus.student_management.application.course.CourseService;
+import org.fastcampus.student_management.application.course.interfaces.CourseQueryRepository;
 import org.fastcampus.student_management.application.student.StudentService;
-import org.fastcampus.student_management.repo.CourseRepository;
+import org.fastcampus.student_management.repo.CourseCommandRepositoryImpl;
+import org.fastcampus.student_management.repo.CourseJdbcQueryRepositoryImpl;
 import org.fastcampus.student_management.repo.StudentRepository;
+import org.fastcampus.student_management.ui.UserInputType;
 import org.fastcampus.student_management.ui.course.CourseController;
 import org.fastcampus.student_management.ui.course.CoursePresenter;
 import org.fastcampus.student_management.ui.student.StudentController;
 import org.fastcampus.student_management.ui.student.StudentPresenter;
-import org.fastcampus.student_management.ui.UserInputType;
 
 public class Main {
 
   public static void main(String[] args) {
     StudentRepository studentRepository = new StudentRepository();
-    CourseRepository courseRepository = new CourseRepository();
+    CourseCommandRepositoryImpl courseCommandRepository = new CourseCommandRepositoryImpl();
+    CourseQueryRepository courseQueryRepository = new CourseJdbcQueryRepositoryImpl();
 
     StudentService studentService = new StudentService(studentRepository);
-    CourseService courseService = new CourseService(courseRepository, studentService);
+    CourseService courseService = new CourseService(courseCommandRepository, courseQueryRepository,
+        studentService);
 
     CoursePresenter coursePresenter = new CoursePresenter();
     StudentPresenter studentPresenter = new StudentPresenter();
 
-    CourseController courseController = new CourseController(coursePresenter, courseService, studentPresenter);
+    CourseController courseController = new CourseController(coursePresenter, courseService,
+        studentPresenter);
     StudentController studentController = new StudentController(studentPresenter, studentService);
 
     studentPresenter.showMenu();

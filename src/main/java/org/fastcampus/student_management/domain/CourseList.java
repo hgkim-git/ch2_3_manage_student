@@ -1,7 +1,7 @@
 package org.fastcampus.student_management.domain;
 
 import java.util.List;
-
+// 일급 컬렉션 객체 활용
 public class CourseList {
 
   private final List<Course> courses;
